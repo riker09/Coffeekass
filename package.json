@@ -1,0 +1,13 @@
+{
+  "name": "coffeekass",
+  "version": "1.0.0",
+  "description": "Track & manage drinks in a company",
+  "scripts": {
+  },
+  "author": "Volker Thiel <volker.thiel@merifond-new-markets.de>",
+  "license": "ISC",
+  "workspaces": [
+    "frontend",
+    "functions"
+  ]
+}

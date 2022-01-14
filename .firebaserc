@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "coffeekass"
+  },
+  "targets": {
+    "coffeekass": {
+      "hosting": {
+        "frontend": [
+          "coffeekass"
+        ]
+      }
+    }
+  }
+}
