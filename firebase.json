@@ -9,8 +9,9 @@
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ]
   },
-  "hosting": {
-    "public": "public",
+  "hosting": [{
+    "target": "frontend",
+    "public": "frontend/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -22,7 +23,7 @@
         "destination": "/index.html"
       }
     ]
-  },
+  }],
   "storage": {
     "rules": "storage.rules"
   },
