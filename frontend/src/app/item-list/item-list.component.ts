@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
-
-interface Product {
-  name: string;
-  price: number;
-}
+import { Product } from '../../interfaces';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-item-list',
@@ -17,7 +14,10 @@ export class ItemListComponent implements OnInit {
   nbItem$: number = 0;
   loading: boolean = true;
 
-  constructor (private firestore: Firestore) {
+  constructor (
+    private firestore: Firestore,
+    private cartService: CartService,
+  ) {
     const coll = collection(this.firestore, 'product');
     this.item$ = collectionData(coll) as unknown as Observable<Product[]>;
     this.item$.subscribe((data) => {
@@ -27,5 +27,9 @@ export class ItemListComponent implements OnInit {
   }
 
   ngOnInit (): void {
+  }
+
+  onAdd (product: Product) {
+    this.cartService.addItem(product);
   }
 }

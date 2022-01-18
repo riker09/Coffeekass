@@ -7,5 +7,5 @@
 </ng-template>
 
 <div *ngFor="let item of item$ | async">
-  <app-item [item]="item"></app-item>
+  <app-item [product]="item" (add)="onAdd($event)"></app-item>
 </div>
