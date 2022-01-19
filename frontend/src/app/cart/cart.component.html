@@ -1,10 +1,10 @@
 <h2>Cart</h2>
 
 <div *ngFor="let item of items">
-  <span class="name">{{ item.product.name }}</span>
-  <span class="price">{{ item.product.price * item.qty | currency }}</span>
-  <span class="qty">Qty: {{ item.qty }}</span>
+  <app-cart-item [item]="item"></app-cart-item>
 </div>
+
+<p *ngIf="items.length < 1">Cart is empty</p>
 
 <span class="total">
   Total: {{ total | currency }}

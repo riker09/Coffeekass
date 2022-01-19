@@ -26,14 +26,6 @@ export class CartService {
     this.items = [];
   }
 
-  increaseQty (idx: number, qty: number = 1) {
-    this.items[idx].qty += qty;
-  }
-
-  decreaseQty (idx: number, qty: number = 1) {
-    this.items[idx].qty -= qty;
-  }
-
   getItems () {
     return this.items;
   }

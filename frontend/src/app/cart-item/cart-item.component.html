@@ -1,0 +1,9 @@
+<span class="name">{{ item.product.name }}</span>
+<span class="price">{{ item.product.price * item.qty | currency }}</span>
+<span class="qty">
+  Qty:
+  <span *ngIf="!isCheckoutView">{{ item.qty }}</span>
+  <span *ngIf="isCheckoutView">
+    <input type="number" [(ngModel)]="item.qty" min="0" max="10">
+  </span>
+</span>

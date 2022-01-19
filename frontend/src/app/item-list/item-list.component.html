@@ -9,3 +9,9 @@
 <div *ngFor="let item of item$ | async">
   <app-item [product]="item" (add)="onAdd($event)"></app-item>
 </div>
+
+<app-cart></app-cart>
+
+<p>
+  <a class="button" routerLink="/checkout">Go to Checkout</a>
+</p>

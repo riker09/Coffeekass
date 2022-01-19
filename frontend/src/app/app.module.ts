@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 // import { connectFunctionsEmulator, FunctionsModule, getFunctions, provideFunctions } from '@angular/fire/functions';
@@ -8,11 +10,15 @@ import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angul
 // import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 // import { provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth';
 
+import { environment } from '../environments/environment';
+
 import { AppComponent } from './app.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemComponent } from './item/item.component';
-import { environment } from '../environments/environment';
 import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CartItemComponent } from './cart-item/cart-item.component';
+
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
 
@@ -26,10 +32,17 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     ItemListComponent,
     ItemComponent,
     CartComponent,
+    CheckoutComponent,
+    CartItemComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot([
+      {path: '', component: ItemListComponent },
+      {path: 'checkout', component: CheckoutComponent},
+    ]),
     // FunctionsModule,
     // provideAuth(() => {
     //   const auth = getAuth();
