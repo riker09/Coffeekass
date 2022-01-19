@@ -8,5 +8,9 @@ service cloud.firestore {
     match /product/{document=**} {
       allow read: if true;
     }
+
+    match /person/{document=**} {
+      allow read: if true;
+    }
   }
 }

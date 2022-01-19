@@ -1,0 +1,9 @@
+<span>Who are you?</span>
+<input type="text" [(ngModel)]="name" (keyup)="onKeyup($event)" />
+
+<p class="person-name">{{ name }}</p>
+
+<p>Available people:</p>
+<div *ngFor="let person of people$ | async">
+  <span (click)="selectPerson(person)" [class.active]="person.name === selectedPerson?.name">{{ person.name }}</span>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Person } from '../../interfaces';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -8,13 +9,21 @@ import { CartService } from '../services/cart.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private cartService: CartService) { }
+  selectedPerson!: Person;
+
+  constructor (
+    private cartService: CartService,
+  ) { }
 
   ngOnInit(): void {
   }
 
   get checkoutButtonDisabled () {
     return !this.cartService.getItems().some(item => item.qty > 0);
+  }
+
+  setPerson (person: Person) {
+    this.selectedPerson = person;
   }
 
 }
