@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as cors from 'cors';
+import { purchase } from "./purchase";
 
 export const helloWorld = functions.https.onRequest((request, response) => {
   functions.logger.info("Hello logs!", {structuredData: true});
@@ -22,3 +23,5 @@ export const getProducts = functions.https.onRequest((request, response) => {
     response.send(products);
   });
 });
+
+export { purchase }

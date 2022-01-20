@@ -6,6 +6,6 @@
 
 <p *ngIf="items.length < 1">Cart is empty</p>
 
-<span class="total">
+<span *ngIf="items.length > 0" class="total">
   Total: {{ total | currency }}
 </span>

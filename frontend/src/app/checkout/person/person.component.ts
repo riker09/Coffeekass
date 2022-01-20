@@ -10,7 +10,7 @@ import { Person } from '../../../interfaces';
 })
 export class PersonComponent implements OnInit {
 
-  @Output() setPerson = new EventEmitter();
+  @Output() select = new EventEmitter<Person>();
 
   people$: Observable<Person[]>;
 
@@ -39,8 +39,7 @@ export class PersonComponent implements OnInit {
 
   selectPerson (person: Person) {
     this.selectedPerson = person;
-    console.debug(person);
-    this.setPerson.emit(this.selectedPerson);
+    this.select.emit(this.selectedPerson);
   }
 
 }

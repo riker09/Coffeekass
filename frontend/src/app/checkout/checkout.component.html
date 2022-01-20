@@ -2,6 +2,8 @@
 
 <p><a routerLink="/">Continue shopping</a></p>
 
-<app-checkout-person (select)="setPerson"></app-checkout-person>
+<div *ngIf="!isCartEmpty">
+  <app-checkout-person (select)="setPerson($event)"></app-checkout-person>
 
-<button [disabled]="checkoutButtonDisabled">Purchase now!</button>
+  <button [disabled]="purchaseButtonDisabled" (click)="purchase()">Purchase now!</button>
+</div>

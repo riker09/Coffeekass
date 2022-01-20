@@ -10,8 +10,8 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./item-list.component.scss']
 })
 export class ItemListComponent implements OnInit {
-  item$: Observable<Product[]>;
-  nbItem$: number = 0;
+  product$: Observable<Product[]>;
+  nbProduct$: number = 0;
   loading: boolean = true;
 
   constructor (
@@ -19,9 +19,9 @@ export class ItemListComponent implements OnInit {
     private cartService: CartService,
   ) {
     const coll = collection(this.firestore, 'product');
-    this.item$ = collectionData(coll) as unknown as Observable<Product[]>;
-    this.item$.subscribe((data) => {
-      this.nbItem$ = data.length;
+    this.product$ = collectionData(coll) as unknown as Observable<Product[]>;
+    this.product$.subscribe((data) => {
+      this.nbProduct$ = data.length;
       this.loading = false;
     });
   }

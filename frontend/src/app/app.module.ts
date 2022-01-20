@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-// import { connectFunctionsEmulator, FunctionsModule, getFunctions, provideFunctions } from '@angular/fire/functions';
+import { connectFunctionsEmulator, FunctionsModule, getFunctions, provideFunctions } from '@angular/fire/functions';
 import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
 // import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 // import { provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth';
@@ -45,7 +45,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
       {path: '', component: ItemListComponent },
       {path: 'checkout', component: CheckoutComponent},
     ]),
-    // FunctionsModule,
+    FunctionsModule,
     // provideAuth(() => {
     //   const auth = getAuth();
     //   if (environment.useEmulators) {
@@ -72,13 +72,13 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     //   }
     //   return storage;
     // }),
-    // provideFunctions(() => {
-    //   const functions = getFunctions();
-    //   if (environment.useEmulators) {
-    //       connectFunctionsEmulator(functions, 'localhost', 5001);
-    //   }
-    //   return functions;
-    // }),
+    provideFunctions(() => {
+      const functions = getFunctions();
+      if (environment.useEmulators) {
+          connectFunctionsEmulator(functions, 'localhost', 5001);
+      }
+      return functions;
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,13 +1,13 @@
 <p *ngIf="loading">Loading...</p>
 
-<p *ngIf="nbItem$ < 1; else hint">There are no items</p>
+<p *ngIf="nbProduct$ < 1; else hint">There are no product</p>
 
 <ng-template #hint>
-  <p>There are {{ nbItem$ }} items.</p>
+  <p>There are {{ nbProduct$ }} products.</p>
 </ng-template>
 
-<div *ngFor="let item of item$ | async">
-  <app-item [product]="item" (add)="onAdd($event)"></app-item>
+<div *ngFor="let product of product$ | async">
+  <app-item [product]="product" (add)="onAdd($event)"></app-item>
 </div>
 
 <app-cart></app-cart>
