@@ -16,7 +16,7 @@ interface Purchase {
 })
 export class CheckoutComponent implements OnInit {
 
-  selectedPerson!: Person;
+  selectedPerson: Person | null = null;
 
   purchaseFn: (data: Purchase) => Observable<{ id: string }>;
   response$: Observable<{ id: string }> = EMPTY;
@@ -45,13 +45,13 @@ export class CheckoutComponent implements OnInit {
     return !this.cartService.getItems().some(item => item.qty > 0) || !this.selectedPerson;
   }
 
-  setPerson (person: Person) {
+  setPerson (person: Person | null) {
     this.selectedPerson = person;
   }
 
   purchase () {
     this.response$ = this.purchaseFn({
-      person: this.selectedPerson,
+      person: this.selectedPerson!,
       items: this.cartService.getItems(),
     });
   }

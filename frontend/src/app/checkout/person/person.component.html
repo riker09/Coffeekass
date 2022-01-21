@@ -1,9 +1,15 @@
-<span>Who are you?</span>
-<input type="text" [(ngModel)]="name" (keyup)="onKeyup($event)" />
+<div *ngIf="!hasSelectedPerson else showSelectedPerson">
+  <p>Who are you?</p>
 
-<p class="person-name">{{ name }}</p>
+  <ul *ngFor="let person of filteredPeople$ | async">
+    <li (click)="selectPerson(person)">{{ person.name }}</li>
+  </ul>
 
-<p>Available people:</p>
-<div *ngFor="let person of people$ | async">
-  <span (click)="selectPerson(person)" [class.active]="person.name === selectedPerson?.name">{{ person.name }}</span>
+  <input type="text" [(ngModel)]="searchString" (keyup)="filter()" placeholder="Search / Filter" />
+  <span *ngIf="searchString.length > 0"><a href="#" (click)="resetFilter($event)">reset</a></span>
 </div>
+
+<ng-template #showSelectedPerson>
+  <p>You are now <strong>{{ selectedPerson?.name }}</strong>.</p>
+  <p>Not {{ selectedPerson?.name }}? <a href="#" (click)="resetSelectedPerson($event)">Go be somebody else</a></p>
+</ng-template>

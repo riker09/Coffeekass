@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
-import { map, Observable } from 'rxjs';
+import { distinctUntilChanged, map, Observable, startWith, Subject, switchMap } from 'rxjs';
 import { Person } from '../../../interfaces';
 
 @Component({
@@ -10,36 +10,60 @@ import { Person } from '../../../interfaces';
 })
 export class PersonComponent implements OnInit {
 
-  @Output() select = new EventEmitter<Person>();
+  @Output() select = new EventEmitter<Person | null>();
 
-  people$: Observable<Person[]>;
+  availablePeople$: Observable<Person[]> = new Observable<Person[]>();
+  filteredPeople$: Observable<Person[]> = new Observable<Person[]>();
 
-  name: string = '';
-  selectedPerson?: Person;
+  selectedPerson: Person | null = null;
+  searchString: string = '';
+  peopleFilter$: Subject<string> = new Subject<string>();
 
   constructor(
     private firestore: Firestore,
   ) {
     const coll = collection(this.firestore, 'person');
-    this.people$ = collectionData(coll) as unknown as Observable<Person[]>;
-   }
+    this.availablePeople$ = collectionData(coll, {
+      idField: 'id',
+    }) as unknown as Observable<Person[]>;
+
+    this.filteredPeople$ = this.peopleFilter$.pipe(
+      startWith(''),
+      distinctUntilChanged(),
+      switchMap((searchText) => this.availablePeople$.pipe(map((people) => people.filter(person => person.name.toLowerCase().includes(searchText.toLowerCase())))))
+    );
+  }
 
   ngOnInit(): void {
   }
 
-  onKeyup ($event: KeyboardEvent) {
-    if ($event.key.toUpperCase() === 'ENTER') {
-      this.people$
-        .pipe(map(people => people.filter(p => p.name.toLowerCase() === this.name.toLowerCase())[0]))
-        .subscribe(person => {
-          this.selectedPerson = person;
-        });
-    }
+  get hasSelectedPerson () {
+    return this.selectedPerson !== null;
   }
 
-  selectPerson (person: Person) {
+  filter () {
+    console.debug(this.searchString);
+    this.peopleFilter$.next(this.searchString);
+  }
+
+  selectPerson (person: Person | null) {
     this.selectedPerson = person;
-    this.select.emit(this.selectedPerson);
+    this.select.emit(person);
   }
 
+  resetFilter (evt: Event) {
+    evt.stopImmediatePropagation();
+    evt.stopPropagation();
+    evt.preventDefault();
+    this.searchString = '';
+    this.peopleFilter$.next('');
+  }
+
+  resetSelectedPerson (evt: Event) {
+    evt.stopImmediatePropagation();
+    evt.stopPropagation();
+    evt.preventDefault();
+    this.selectPerson(null);
+    this.resetFilter(evt);
+  }
 }
