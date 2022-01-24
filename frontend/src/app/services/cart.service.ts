@@ -23,7 +23,7 @@ export class CartService {
   }
 
   clear () {
-    this.items = [];
+    this.items.splice(0);
   }
 
   getItems () {

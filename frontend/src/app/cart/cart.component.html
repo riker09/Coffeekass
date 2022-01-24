@@ -9,3 +9,5 @@
 <span *ngIf="items.length > 0" class="total">
   Total: {{ total | currency }}
 </span>
+
+<p *ngIf="items.length > 0"><a href="#" (click)="clearCart($event)">Clear cart</a></p>
