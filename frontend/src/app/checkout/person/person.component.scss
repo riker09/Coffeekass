@@ -1,3 +1,31 @@
 .active {
   font-weight: bold;
 }
+
+.people {
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+}
+
+.person {
+  display: block;
+  justify-content: space-between;
+  width: 120px;
+  height: 120px;
+  margin: 0 10px;
+  border: solid #ddd 1px;
+  border-radius: 6px;
+  transition: border-color .3s ease-in-out;
+  cursor: pointer;
+  flex-direction: column;
+
+  &:hover {
+    border-color: #aaa;
+  }
+
+  .name {
+    display: block;
+    justify-content: space-between;
+  }
+}

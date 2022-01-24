@@ -1,3 +1,8 @@
-<span class="name">{{ product.name }}</span>
-<span class="price">{{ product.price | currency }}</span>
-<button (click)="addToCart()">Add</button>
+<div class="mb-3">
+  <p-skeleton width="100%" height="6rem"></p-skeleton>
+</div>
+<h4 class="name">{{ product.name }}</h4>
+<h6 class="price">{{ product.price | currency }}</h6>
+<div class="actions">
+  <button pButton type="button" label="Add to cart" icon="pi pi-shopping-cart" iconPos="left" (click)="addToCart()"></button>
+</div>

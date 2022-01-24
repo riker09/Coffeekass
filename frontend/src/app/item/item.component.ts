@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../../interfaces';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-item',

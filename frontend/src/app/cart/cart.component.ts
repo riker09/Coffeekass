@@ -22,10 +22,4 @@ export class CartComponent implements OnInit {
     return this.cartService.getTotal();
   }
 
-  clearCart (evt: Event) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    this.cartService.clear();
-  }
-
 }

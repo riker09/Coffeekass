@@ -42,7 +42,6 @@ export class PersonComponent implements OnInit {
   }
 
   filter () {
-    console.debug(this.searchString);
     this.peopleFilter$.next(this.searchString);
   }
 
@@ -52,7 +51,6 @@ export class PersonComponent implements OnInit {
   }
 
   resetFilter (evt: Event) {
-    evt.stopImmediatePropagation();
     evt.stopPropagation();
     evt.preventDefault();
     this.searchString = '';
@@ -60,7 +58,6 @@ export class PersonComponent implements OnInit {
   }
 
   resetSelectedPerson (evt: Event) {
-    evt.stopImmediatePropagation();
     evt.stopPropagation();
     evt.preventDefault();
     this.selectPerson(null);

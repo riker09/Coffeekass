@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { CarouselModule } from 'primeng/carousel';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { connectFunctionsEmulator, FunctionsModule, getFunctions, provideFunctions } from '@angular/fire/functions';
@@ -41,6 +45,10 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ButtonModule,
+    CarouselModule,
+    SkeletonModule,
+    TableModule,
     RouterModule.forRoot([
       {path: '', component: ItemListComponent },
       {path: 'checkout', component: CheckoutComponent},

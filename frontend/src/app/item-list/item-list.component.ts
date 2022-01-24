@@ -14,6 +14,14 @@ export class ItemListComponent implements OnInit {
   nbProduct$: number = 0;
   loading: boolean = true;
 
+  get canGoToCheckout () {
+    return this.cartService.getItems().some(x => x.qty > 0);
+  }
+
+  get cartItems () {
+    return this.cartService.getItems();
+  }
+
   constructor (
     private firestore: Firestore,
     private cartService: CartService,
@@ -31,5 +39,11 @@ export class ItemListComponent implements OnInit {
 
   onAdd (product: Product) {
     this.cartService.addItem(product);
+  }
+
+  clearCart (evt: Event) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    this.cartService.clear();
   }
 }

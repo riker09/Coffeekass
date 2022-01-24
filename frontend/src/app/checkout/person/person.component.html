@@ -1,8 +1,14 @@
 <div *ngIf="!hasSelectedPerson else showSelectedPerson">
   <p>Who are you?</p>
 
-  <ul *ngFor="let person of filteredPeople$ | async">
-    <li (click)="selectPerson(person)">{{ person.name }}</li>
+  <ul class="people">
+    <li
+      *ngFor="let person of filteredPeople$ | async"
+      class="person"
+      (click)="selectPerson(person)"
+    >
+      <span class="name">{{ person.name }}</span>
+    </li>
   </ul>
 
   <input type="text" [(ngModel)]="searchString" (keyup)="filter()" placeholder="Search / Filter" />
