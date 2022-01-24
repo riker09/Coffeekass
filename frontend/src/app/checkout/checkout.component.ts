@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Functions, httpsCallableData } from '@angular/fire/functions';
-import { EMPTY, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CartItem, Person } from '../../interfaces';
 import { CartService } from '../services/cart.service';
 
@@ -19,19 +20,14 @@ export class CheckoutComponent implements OnInit {
   selectedPerson: Person | null = null;
 
   purchaseFn: (data: Purchase) => Observable<{ id: string }>;
-  response$: Observable<{ id: string }> = EMPTY;
 
   constructor (
     private cartService: CartService,
+    private routerService: Router,
     private firebaseFunctions: Functions,
   ) {
     // @todo: Find out why the cast to unknown is required in the first place (seems like a lib issue?)
     this.purchaseFn = httpsCallableData(this.firebaseFunctions, 'purchase', { timeout: 3000 }) as unknown as (data: Purchase) => Observable<{ id: string }>;
-
-    this.response$.subscribe({
-      next: () => { this.cartService.clear(); },
-      error: (err: Error) => { console.error(err); alert(err.message); }
-    });
   }
 
   ngOnInit(): void {
@@ -50,9 +46,17 @@ export class CheckoutComponent implements OnInit {
   }
 
   purchase () {
-    this.response$ = this.purchaseFn({
+    this.purchaseFn({
       person: this.selectedPerson!,
       items: this.cartService.getItems(),
+    })
+    .subscribe({
+      next: (result) => {
+        alert(`Successfully created docId ${result.id}`);
+        this.cartService.clear();
+        this.routerService.navigate([]);
+      },
+      error: (err: Error) => { console.error(err); alert(err.message); }
     });
   }
 
