@@ -1,5 +1,6 @@
-<div class="mb-3">
-  <p-skeleton width="100%" height="6rem"></p-skeleton>
+<div class="mb-3 align-items-center justify-content-center h-15rem w-10rem">
+  <p-skeleton *ngIf="loading" width="100%" height="6rem"></p-skeleton>
+  <img *ngIf="!loading" [src]="image" [alt]="product.name"/>
 </div>
 <h4 class="name">{{ product.name }}</h4>
 <h6 class="price">{{ product.price | currency }}</h6>

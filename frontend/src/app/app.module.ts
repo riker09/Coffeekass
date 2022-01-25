@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
+import { DataViewModule } from 'primeng/dataview';
+import { DropdownModule } from 'primeng/dropdown';
+import { ImageModule } from 'primeng/image';
+import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { connectFunctionsEmulator, FunctionsModule, getFunctions, provideFunctions } from '@angular/fire/functions';
 import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
-// import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
+import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 // import { provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
@@ -43,10 +48,15 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ButtonModule,
     CarouselModule,
+    DataViewModule,
+    DropdownModule,
+    ImageModule,
+    InputTextModule,
     SkeletonModule,
     TableModule,
     RouterModule.forRoot([
@@ -73,13 +83,13 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
       // );
       return firestore;
     }),
-    // provideStorage(() => {
-    //   const storage = getStorage();
-    //   if (environment.useEmulators) {
-    //       connectStorageEmulator(storage, 'localhost', 9199);
-    //   }
-    //   return storage;
-    // }),
+    provideStorage(() => {
+      const storage = getStorage();
+      if (environment.useEmulators) {
+          connectStorageEmulator(storage, 'localhost', 9199);
+      }
+      return storage;
+    }),
     provideFunctions(() => {
       const functions = getFunctions();
       if (environment.useEmulators) {
