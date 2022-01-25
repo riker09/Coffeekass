@@ -33,10 +33,11 @@
   <div class="col-12 lg:col-6">
     <div class="card">
       <app-cart></app-cart>
+    </div>
 
-      <button *ngIf="cartItems.length > 0" pButton class="p-button-secondary p-button-outlined" label="Clear Cart" (click)="clearCart($event)"></button>
-      <button *ngIf="canGoToCheckout" pButton routerLink="/checkout" label="Proceed to Checkout"></button>
-
+    <div class="card">
+      <h2>Person</h2>
+      <app-person-picker></app-person-picker>
     </div>
   </div>
 </div>

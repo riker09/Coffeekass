@@ -1,18 +1,21 @@
 <div *ngIf="!hasSelectedPerson else showSelectedPerson">
   <p>Who are you?</p>
 
-  <ul class="people">
-    <li
+  <p-avatar
       *ngFor="let person of filteredPeople$ | async"
+      size="xlarge"
       class="person"
+      shape="circle"
+      [style]="avatarStyles(person)"
+      [label]="initials(person.name)"
       (click)="selectPerson(person)"
     >
-      <span class="name">{{ person.name }}</span>
-    </li>
-  </ul>
+  </p-avatar>
 
-  <input type="text" [(ngModel)]="searchString" (keyup)="filter()" placeholder="Search / Filter" />
-  <span *ngIf="searchString.length > 0"><a href="#" (click)="resetFilter($event)">reset</a></span>
+  <div>
+    <input type="text" [(ngModel)]="searchString" (keyup)="filter()" placeholder="Search / Filter" />
+    <span *ngIf="searchString.length > 0"><a href="#" (click)="resetFilter($event)">reset</a></span>
+  </div>
 </div>
 
 <ng-template #showSelectedPerson>

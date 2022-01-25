@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { DataViewModule } from 'primeng/dataview';
@@ -27,7 +28,7 @@ import { ItemComponent } from './item/item.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
-import { PersonComponent } from './checkout/person/person.component';
+import { PersonComponent } from './person-picker/person-picker.component';
 
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
@@ -51,6 +52,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    AvatarModule,
     ButtonModule,
     CarouselModule,
     DataViewModule,
