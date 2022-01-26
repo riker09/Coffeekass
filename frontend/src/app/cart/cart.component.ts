@@ -57,6 +57,10 @@ export class CartComponent implements OnInit {
     this.cartService.clear();
   }
 
+  clearPerson () {
+    this.peopleService.selectPerson();
+  }
+
   checkout () {
     this.purchaseFn({
       person: this.peopleService.selectedPerson!,

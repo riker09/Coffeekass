@@ -22,6 +22,9 @@ export class PeopleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.peopleService.onPersonChange.subscribe((person) => {
+      if (!person) this.selectedPerson = null;
+    })
   }
 
   get hasSelectedPerson () {

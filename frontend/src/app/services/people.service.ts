@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
+import { Subject } from 'rxjs';
 import { Person } from '../../interfaces';
 
 @Injectable({
@@ -9,6 +10,8 @@ export class PeopleService {
 
   private _people: Array<Person & Partial<{ id: string }>> = [];
   private _selectedPerson?: Person;
+
+  onPersonChange: Subject<Person | undefined> = new Subject();
 
   constructor(
     private firestore: Firestore,
@@ -34,6 +37,7 @@ export class PeopleService {
   }
 
   selectPerson (person?: Person) {
+    this.onPersonChange.next(person);
     this._selectedPerson = person;
   }
 
