@@ -27,7 +27,7 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { ItemComponent } from './item/item.component';
 import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
-import { PersonComponent } from './person-picker/person-picker.component';
+import { PeopleComponent } from './people/people.component';
 
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
@@ -43,7 +43,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     ItemComponent,
     CartComponent,
     CartItemComponent,
-    PersonComponent,
+    PeopleComponent,
   ],
   imports: [
     BrowserModule,
