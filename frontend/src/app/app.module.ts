@@ -13,6 +13,8 @@ import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { connectFunctionsEmulator, FunctionsModule, getFunctions, provideFunctions } from '@angular/fire/functions';
@@ -28,6 +30,7 @@ import { ItemComponent } from './item/item.component';
 import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { PeopleComponent } from './people/people.component';
+import { AvatarComponent } from './utils/avatar/avatar.component';
 
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
@@ -44,6 +47,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     CartComponent,
     CartItemComponent,
     PeopleComponent,
+    AvatarComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +63,8 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     InputTextModule,
     SkeletonModule,
     TableModule,
+    ToastModule,
+    TooltipModule,
     RouterModule.forRoot([
       {path: '', component: ItemListComponent },
     ]),

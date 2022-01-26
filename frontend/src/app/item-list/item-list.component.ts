@@ -61,14 +61,14 @@ export class ItemListComponent implements OnInit {
     this.cartService.clear();
   }
 
-  resetOnEsc($event: Event) {
-    if (($event as KeyboardEvent).key.toUpperCase() === 'ESCAPE') {
+  resetOnEsc ($event: KeyboardEvent) {
+    if ($event.key.toUpperCase() === 'ESCAPE') {
       ($event.target as HTMLInputElement).value = '';
       this.dv?.filter('');
     }
   }
 
-  applyFilterGlobal($event: Event, stringVal: 'contains'|'startsWith'|'endsWith'|'equals'|'notEquals'|'in'|'lt'|'lte'|'gt'|'gte') {
+  applyFilterGlobal ($event: Event, stringVal: 'contains'|'startsWith'|'endsWith'|'equals'|'notEquals'|'in'|'lt'|'lte'|'gt'|'gte') {
     this.dv?.filter(($event.target as HTMLInputElement).value, stringVal);
   }
 
@@ -82,5 +82,5 @@ export class ItemListComponent implements OnInit {
       this.sortOrder = 1;
       this.sortField = value;
     }
-}
+  }
 }
