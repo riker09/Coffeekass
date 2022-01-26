@@ -1,7 +1,0 @@
-<app-cart></app-cart>
-
-<p><a routerLink="/">Continue shopping</a></p>
-
-<div *ngIf="!isCartEmpty">
-  <button [disabled]="purchaseButtonDisabled" (click)="purchase()">Purchase now!</button>
-</div>

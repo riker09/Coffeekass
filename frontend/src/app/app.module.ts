@@ -26,7 +26,6 @@ import { AppComponent } from './app.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemComponent } from './item/item.component';
 import { CartComponent } from './cart/cart.component';
-import { CheckoutComponent } from './checkout/checkout.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { PersonComponent } from './person-picker/person-picker.component';
 
@@ -43,7 +42,6 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     ItemListComponent,
     ItemComponent,
     CartComponent,
-    CheckoutComponent,
     CartItemComponent,
     PersonComponent,
   ],
@@ -63,7 +61,6 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     TableModule,
     RouterModule.forRoot([
       {path: '', component: ItemListComponent },
-      {path: 'checkout', component: CheckoutComponent},
     ]),
     FunctionsModule,
     // provideAuth(() => {
