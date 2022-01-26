@@ -5,5 +5,14 @@
 <h4 class="name">{{ product.name }}</h4>
 <h6 class="price">{{ product.price | currency }}</h6>
 <div class="actions">
-  <button pButton type="button" label="Add to cart" icon="pi pi-shopping-cart" iconPos="left" (click)="addToCart()"></button>
+  <button
+    pButton
+    type="button"
+    label="Add to cart"
+    class="p-button-outlined"
+    icon="pi pi-shopping-cart"
+    iconPos="left"
+    (click)="addToCart()"
+  >
+  </button>
 </div>

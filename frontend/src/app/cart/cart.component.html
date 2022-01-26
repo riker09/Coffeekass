@@ -1,6 +1,6 @@
 <h2>Cart</h2>
 
-<p *ngIf="items.length < 1">Cart is empty</p>
+<p *ngIf="items.length < 1">Your cart is empty</p>
 
 <p-table *ngIf="items.length > 0" [value]="items" responsiveLayout="scroll">
   <ng-template pTemplate="header">
@@ -26,5 +26,32 @@
         <p> {{ total | currency }}</p>
       </td>
     </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+    <div class="grid">
+      <div class="col-6">
+        <button
+          pButton
+          type="button"
+          label="Clear cart"
+          class="p-button-secondary p-button-outlined"
+          (click)="clearCart()"
+        ></button>
+      </div>
+      <div class="col-6" style="text-align: right;">
+        <button
+          pButton
+          [pTooltip]="tooltipText"
+          tooltipPosition="top"
+          type="button"
+          label="Buy now"
+          icon="pi pi-check"
+          iconPos="left"
+          [disabled]="!canCheckout"
+          (click)="checkout()"
+        ></button>
+      </div>
+    </div>
   </ng-template>
 </p-table>
