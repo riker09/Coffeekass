@@ -67,3 +67,4 @@ node_modules/
 
 # Firebase Access Key
 coffeekass-*.json
+coffeekass-firebase-adminsdk-*-*.json
