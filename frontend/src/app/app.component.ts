@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Coffeekass';
+
+  constructor () {
+    document.documentElement.style.fontSize = '14px';
+  }
 }

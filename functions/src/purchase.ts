@@ -16,7 +16,11 @@ interface CartItem {
   product: Product,
   qty: number,
 }
-type Purchase = { person: Person, items: CartItem[] };
+type Purchase = {
+  person: Person;
+  items: CartItem[];
+  createdAt: Date,
+};
 
 const app = initializeApp({
   credential: applicationDefault(),
@@ -31,6 +35,8 @@ export const purchase = functions.https.onRequest((req, res) => {
       res.status(400).send('Missing property: person.name');
       return;
     }
+
+    purchase.createdAt = new Date();
 
     const coll = firestore.collection('purchase');
     const doc = await coll.add(purchase);

@@ -1,17 +1,44 @@
 <p *ngIf="loading">Loading...</p>
 
-<p *ngIf="nbProduct$ < 1; else hint">There are no product</p>
+<div class="grid">
+  <div class="col-12 lg:col-6">
 
-<ng-template #hint>
-  <p>There are {{ nbProduct$ }} products.</p>
-</ng-template>
+    <div class="card">
+      <h2>Available items</h2>
 
-<div *ngFor="let product of product$ | async">
-  <app-item [product]="product" (add)="onAdd($event)"></app-item>
+      <p-dataView #dv [value]="(product$ | async)!" filterBy="name" [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+        <ng-template pTemplate="header">
+          <div class="grid flex-nowrap">
+            <div class="col-4">
+              <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                (onChange)="onSortChange($event)" [style]="{'min-width':'10em'}"></p-dropdown>
+            </div>
+            <div class="col-4">
+              <input type="search" pInputText placeholder="Search by name" (keyup)="resetOnEsc($event)" (input)="applyFilterGlobal($event, 'contains')" />
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template let-product pTemplate="gridItem">
+          <div class="col-12 md:col-4">
+            <div class="product-item">
+              <app-item [product]="product" (add)="onAdd($event)"></app-item>
+            </div>
+          </div>
+        </ng-template>
+      </p-dataView>
+    </div>
+  </div>
+
+  <div class="col-12 lg:col-6">
+    <div class="card">
+      <h2>Who are you?</h2>
+      <app-people></app-people>
+    </div>
+
+    <div class="card">
+      <h2>Cart</h2>
+      <app-cart></app-cart>
+    </div>
+  </div>
 </div>
-
-<app-cart></app-cart>
-
-<p>
-  <a class="button" routerLink="/checkout">Go to Checkout</a>
-</p>
