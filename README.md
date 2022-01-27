@@ -26,10 +26,10 @@ This is a playground web application to get myself familiar with Angular and Pri
 firebase emulators:start --only firestore,functions,storage --import firestore/data/default
 
 # Import on startup, export when closing
-firebase emulators:start --only firestore,functions,storage --import firestore/data/__mydata --export-on-exit
+firebase emulators:start --only firestore,functions,storage --import firestore/data/default --export-on-exit
 
 # Export (while emulators are running)
-firebase emulators:export firestore/data/__mydata
+firebase emulators:export firestore/data/__mydata__
 ```
 
 > Please note: Exporting stored files from Firebase Storage is currently *not* supported.
