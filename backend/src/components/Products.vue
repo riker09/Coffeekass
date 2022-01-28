@@ -237,11 +237,16 @@ const confirmDeleteProduct = (prod: IProduct) => {
   deleteProductDialog.value = true;
 };
 
-const deleteProduct = () => {
-  products.value = products.value.filter(val => val.id !== product.value.id);
-  deleteProductDialog.value = false;
-  product.value = new Product();
-  toast.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+const deleteProduct = async () => {
+  try {
+    await productService.delete(product.value.id);
+    products.value = products.value.filter(val => val.id !== product.value.id);
+    deleteProductDialog.value = false;
+    product.value = new Product();
+    toast.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+  } catch (err) {
+    toast.add({ severity: 'error', summary: 'Error deleting product', detail: (err as Error).message, life: 5000 });
+  }
 };
 
 const findIndexById = (id: string) => {

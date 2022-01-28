@@ -1,4 +1,4 @@
-import { collection, query, onSnapshot } from 'firebase/firestore';
+import { collection, query, onSnapshot, doc, deleteDoc  } from 'firebase/firestore';
 import { ref, Ref } from 'vue';
 import { IProduct } from '../interfaces/i-product';
 import { firestore as db } from './Firebase';
@@ -21,6 +21,10 @@ export class ProductService {
 
   get products () {
     return this._products.value;
+  }
+
+  delete (id: string) {
+    return deleteDoc(doc(db, `product/${id}`));
   }
 }
 
