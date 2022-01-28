@@ -1,12 +1,7 @@
-<script setup lang="ts">
-import Products from './components/Products.vue';
-import HelloWorld from './components/HelloWorld.vue';
-</script>
 
 <template>
   <Toast/>
-  <!-- <HelloWorld msg="Hello, children!"/> -->
-  <Products />
+  <router-view></router-view>
 </template>
 
 <style>

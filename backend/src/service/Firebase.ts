@@ -9,13 +9,13 @@ const firebaseApp = initializeApp(environment.firebase);
 // Auth
 const auth = getAuth(firebaseApp);
 if (environment.useEmulators) {
-  connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+  connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true });
 }
 
 // Firestore
 const firestore = getFirestore(firebaseApp);
 if (environment.useEmulators) {
-  connectFirestoreEmulator(firestore, 'localhost', 8080);
+  connectFirestoreEmulator(firestore, '127.0.0.1', 8080);
 }
 
 export { auth, firestore };
