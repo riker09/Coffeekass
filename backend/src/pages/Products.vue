@@ -50,6 +50,7 @@
             {{formatCurrency(slotProps.data.price)}}
           </template>
         </Column>
+        <Column field="quantity" header="Qty" :sortable="true"></Column>
         <Column field="inventoryStatus" header="Status" :sortable="true" style="min-width:12rem">
           <template #body="slotProps">
             <Badge :severity="inventoryStatusSeverityMap[slotProps.data.inventoryStatus as 'instock' | 'lowstock' | 'outofstock'] || '' ">
@@ -136,12 +137,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { ref } from 'vue';
+import { FilterMatchMode } from 'primevue/api';
 import { useToast } from 'primevue/usetoast';
 import productService from '../service/ProductService';
 import { InventoryStatusType, IProduct } from '../interfaces/i-product';
-import { DataTableFilterMetaData, DataTableOperatorFilterMetaData } from 'primevue/datatable';
+import { DataTableFilterMetaData } from 'primevue/datatable';
 
 class Product implements IProduct {
   id: string = '';
@@ -161,9 +162,6 @@ const deleteProductDialog = ref(false);
 const deleteProductsDialog = ref(false);
 const product = ref<Product>(new Product());
 const selectedProducts = ref();
-// const filters = ref({
-//   global: { value: '', matchMode: FilterMatchMode.CONTAINS },
-// });
 const filters = ref({
   global: {
     value: '',
@@ -326,6 +324,5 @@ const deleteSelectedProducts = () => {
 .p-badge {
   border-radius: 2px;
   text-transform: uppercase;
-  background: #ddd;
 }
 </style>

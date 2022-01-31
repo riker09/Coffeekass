@@ -3,7 +3,6 @@ import { auth } from '../service/Firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
 
 interface Auth extends Object {
-  uid: string;
   user: User | null;
 }
 
@@ -14,7 +13,6 @@ class AuthStore extends Store<Auth> {
     super();
 
     onAuthStateChanged(auth, (user) => {
-      this.state.uid = user?.uid || '';
       this.state.user = user;
       this.initialized = true;
     });
@@ -22,7 +20,6 @@ class AuthStore extends Store<Auth> {
 
   protected data(): Auth {
     return {
-      uid: '',
       user: null,
     };
   }
@@ -51,10 +48,6 @@ class AuthStore extends Store<Auth> {
     console.debug(`Auth store init complete after ${Date.now() - now}ms; Successful: ${result}`);
   }
 
-  setUid (uid: string) {
-    this.state.uid = uid;
-  }
-
   logout () {
     return auth.signOut();
   }
@@ -64,11 +57,11 @@ class AuthStore extends Store<Auth> {
   }
 
   get uid () {
-    return this.state.uid;
+    return this.state.user?.uid;
   }
 
   get authenticated (): boolean {
-    return !!this.state.uid && this.state.uid !== '';
+    return !!this.state.user?.uid && this.state.user?.uid !== '';
   }
 }
 
