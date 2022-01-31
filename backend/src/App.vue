@@ -1,6 +1,19 @@
+<script setup lang="ts">
+import SignInOut from './components/SignInOut.vue';
+</script>
 
 <template>
+  <Toolbar>
+    <template #start>
+      <h2>Coffeekass</h2>
+    </template>
+    <template #end>
+      <SignInOut />
+    </template>
+  </Toolbar>
+
   <Toast/>
+
   <router-view></router-view>
 </template>
 

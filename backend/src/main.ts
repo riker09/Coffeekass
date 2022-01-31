@@ -47,4 +47,4 @@ app.component('Toast', Toast);
 app.component('Toolbar', Toolbar);
 
 
-app.mount('#app')
+app.mount('#app');

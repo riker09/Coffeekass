@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteLocationNormalized } from 'vue-router';
 import Dashboard from './components/Dashboard.vue';
-import { auth } from './service/Firebase';
+import { authStore } from './store/auth-store';
 
 const routes = [
   {
@@ -21,12 +21,12 @@ const routes = [
     name: 'products',
     component: () => import('./pages/Products.vue'),
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('./pages/Login.vue'),
-    meta: { anonymous: true },
-  },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: () => import('./pages/Login.vue'),
+  //   meta: { anonymous: true },
+  // },
   {
     path: '/error',
     name: 'error',
@@ -37,11 +37,12 @@ const routes = [
     name: 'notfound',
     component: () => import('./pages/NotFound.vue')
   },
-  // {
-  //   path: '/access',
-  //   name: 'access',
-  //   component: () => import('./pages/Access.vue')
-  // },
+  {
+    path: '/access-denied',
+    name: 'access',
+    component: () => import('./pages/AccessDenied.vue'),
+    meta: { anonymous: true },
+  },
 ];
 
 const router = createRouter({
@@ -50,17 +51,18 @@ const router = createRouter({
 });
 
 const canUserAccess = async (route: RouteLocationNormalized) => {
-  return true;
-  if (auth.currentUser?.uid) {
-    return true;
-  }
-  if (Math.random() > 0.5) return true;
-  return false;
+  // Allow access to anonymous pages or when user is authenticated (no ACL yet)
+  return route.meta?.anonymous || authStore.authenticated;
 }
 
 router.beforeEach(async (to, from) => {
+  await authStore.init();
+  if (authStore.authenticated && to.name === 'access') {
+    // Redirect to Dashboard when on Access Denied page & authenticated
+    return '/';
+  }
   const canAccess = await canUserAccess(to);
-  if (!canAccess) return '/login';
+  if (!canAccess) return '/access-denied';
 })
 
 export default router;
