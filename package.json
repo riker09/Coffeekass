@@ -8,6 +8,7 @@
   "author": "Volker Thiel <volker.thiel@merifond-new-markets.de>",
   "license": "ISC",
   "workspaces": [
+    "backend",
     "frontend",
     "functions"
   ]
