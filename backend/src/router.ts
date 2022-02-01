@@ -45,8 +45,8 @@ export const routes: RouteRecordRaw[] = [
     meta: { anonymous: true },
   },
   {
-    path: '/logged-out',
-    name: 'loggedout',
+    path: '/logout',
+    name: 'logout',
     component: LoggedOutComponent,
     meta: { anonymous: true },
   },

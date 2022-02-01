@@ -10,6 +10,17 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import { authStore } from '../store/auth-store';
+
+onMounted(async () => {
+  if (authStore.authenticated) {
+    await authStore.logout();
+  }
+});
+</script>
+
 <style scoped lang="scss">
 .text-center {
   text-align: center;

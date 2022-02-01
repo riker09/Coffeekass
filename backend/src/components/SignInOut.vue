@@ -1,7 +1,9 @@
 <template>
-  <p v-if="loggedIn">Welcome back, {{ username }}!</p>
+  <p v-if="loggedIn">
+    Welcome back, {{ username }}!
+    <router-link to="/logout">Logout</router-link>
+  </p>
   <Button v-if="!loggedIn" label="Login" icon="pi pi-sign-in" @click="openLoginModal" />
-  <Button v-if="loggedIn" label="Logout" icon="pi pi-sign-out" @click="signOut" icon-pos="right" />
 
   <Dialog header="Login" :visible="visible" :style="{width: '30vw'}" :modal="true">
 
@@ -43,11 +45,6 @@ export default defineComponent({
       loginModalStore.show();
     }
 
-    const signOut = async () => {
-      await authStore.logout();
-      window.location.reload();
-    }
-
     const performLogin = async () => {
       await signInForm.value?.performLogin();
     }
@@ -60,7 +57,6 @@ export default defineComponent({
       closeLoginModal,
       openLoginModal,
       performLogin,
-      signOut,
     }
   }
 });
