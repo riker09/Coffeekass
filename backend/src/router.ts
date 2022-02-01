@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecor
 import { authStore } from './store/auth-store';
 
 import AccessDeniedComponent from './pages/AccessDenied.vue';
-import DashboardComponent from './components/Dashboard.vue';
+import DashboardComponent from './pages/Dashboard.vue';
 import ErrorComponent from './pages/Error.vue';
 import LoggedOutComponent from './pages/LoggedOut.vue';
 import NotFoundComponent from './pages/NotFound.vue';
@@ -16,7 +16,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/hello-world',
     name: 'helloworld',
-    component: () => import('./components/HelloWorld.vue'),
+    component: () => import('./pages/HelloWorld.vue'),
     props: {
       msg: 'Hi there!',
     }
