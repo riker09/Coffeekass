@@ -4,5 +4,9 @@
     "version": "1.11.14",
     "path": "firestore_export",
     "metadata_file": "firestore_export/firestore_export.overall_export_metadata"
+  },
+  "auth": {
+    "version": "9.9.0",
+    "path": "auth_export"
   }
 }
