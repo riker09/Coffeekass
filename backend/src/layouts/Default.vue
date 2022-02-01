@@ -6,7 +6,7 @@
     </template>
 
     <template #end>
-      <SignInOut />
+      <SignInSignOut />
     </template>
   </Toolbar>
 
@@ -15,5 +15,5 @@
 </template>
 
 <script setup lang="ts">
-import SignInOut from '../components/SignInOut.vue';
+import SignInSignOut from '../components/SignInSignOut.vue';
 </script>

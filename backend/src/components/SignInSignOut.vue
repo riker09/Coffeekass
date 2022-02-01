@@ -5,12 +5,18 @@
   </p>
   <Button v-if="!loggedIn" label="Login" icon="pi pi-sign-in" @click="openLoginModal" />
 
-  <Dialog header="Login" :visible="visible" :style="{width: '30vw'}" :modal="true">
+  <Dialog
+    header="Login"
+    :visible="visible"
+    :style="{width: '30vw'}"
+    :modal="true"
+    :draggable="false"
+    @update:visible="closeDialog"
+  >
 
-    <SignInForm ref="signInForm" />
+    <LoginForm ref="loginForm" />
 
     <template #footer>
-      <Button label="Cancel" icon="pi pi-times" @click="closeLoginModal" class="p-button-text"/>
       <Button label="Login" icon="pi pi-check" @click="performLogin" autofocus />
     </template>
   </Dialog>
@@ -21,40 +27,40 @@
 import { computed, defineComponent, ref } from 'vue';
 import { authStore } from '../store/auth-store';
 import { loginModalStore } from '../store/login-modal-store';
-import SignInForm from './SignInForm.vue';
+import LoginForm from './LoginForm.vue';
 
 export default defineComponent({
   components: {
-    SignInForm,
+    LoginForm,
   },
 
   setup () {
 
-    const signInForm = ref<InstanceType<typeof SignInForm>>();
+    const loginForm = ref<InstanceType<typeof LoginForm>>();
     const visible = computed(() => {
       return loginModalStore.getState().visible;
     });
     const username = computed(() => authStore.user?.displayName);
     const loggedIn = computed(() => authStore.authenticated);
 
-    const closeLoginModal = () => {
-      loginModalStore.hide();
-    }
-
     const openLoginModal = () => {
       loginModalStore.show();
     }
 
     const performLogin = async () => {
-      await signInForm.value?.performLogin();
+      await loginForm.value?.performLogin();
+    }
+
+    const closeDialog = (visible: boolean) => {
+      if (!visible) loginModalStore.close();
     }
 
     return {
+      closeDialog,
       loggedIn,
-      signInForm,
+      loginForm,
       username,
       visible,
-      closeLoginModal,
       openLoginModal,
       performLogin,
     }
