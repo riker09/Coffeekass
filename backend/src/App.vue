@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import SignInOut from './components/SignInOut.vue';
+import { computed } from 'vue';
+import router from './router';
+
+const layout = computed(() => router.currentRoute.value.meta.layout || 'DefaultLayout')
 </script>
 
 <template>
-  <Toolbar>
-    <template #start>
-      <h2>Coffeekass</h2>
-    </template>
-    <template #end>
-      <SignInOut />
-    </template>
-  </Toolbar>
-
   <Toast/>
 
-  <router-view></router-view>
+  <component :is="layout">
+    <router-view></router-view>
+  </component>
 </template>
 
 <style>

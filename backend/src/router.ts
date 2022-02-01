@@ -1,12 +1,17 @@
-import { createRouter, createWebHashHistory, RouteLocationNormalized } from 'vue-router';
-import Dashboard from './components/Dashboard.vue';
+import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import { authStore } from './store/auth-store';
 
-const routes = [
+import AccessDeniedComponent from './pages/AccessDenied.vue';
+import DashboardComponent from './components/Dashboard.vue';
+import ErrorComponent from './pages/Error.vue';
+import LoggedOutComponent from './pages/LoggedOut.vue';
+import NotFoundComponent from './pages/NotFound.vue';
+
+export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'dashboard',
-    component: Dashboard,
+    component: DashboardComponent,
   },
   {
     path: '/hello-world',
@@ -21,26 +26,28 @@ const routes = [
     name: 'products',
     component: () => import('./pages/Products.vue'),
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: () => import('./pages/Login.vue'),
-  //   meta: { anonymous: true },
-  // },
   {
     path: '/error',
     name: 'error',
-    component: () => import('./pages/Error.vue')
+    component: ErrorComponent,
+    meta: { anonymous: true, },
   },
   {
-    path: '/notfound',
+    path: '/not-found',
     name: 'notfound',
-    component: () => import('./pages/NotFound.vue')
+    component: NotFoundComponent,
+    meta: { anonymous: true, layout: 'NoMenuLayout' },
   },
   {
     path: '/access-denied',
     name: 'access',
-    component: () => import('./pages/AccessDenied.vue'),
+    component: AccessDeniedComponent,
+    meta: { anonymous: true },
+  },
+  {
+    path: '/logged-out',
+    name: 'loggedout',
+    component: LoggedOutComponent,
     meta: { anonymous: true },
   },
 ];
@@ -50,19 +57,28 @@ const router = createRouter({
   routes,
 });
 
-const canUserAccess = async (route: RouteLocationNormalized) => {
-  // Allow access to anonymous pages or when user is authenticated (no ACL yet)
-  return route.meta?.anonymous || authStore.authenticated;
-}
-
 router.beforeEach(async (to, from) => {
   await authStore.init();
+
+  // Redirect to Dashboard when user is authenticated & on AccessDenied page
   if (authStore.authenticated && to.name === 'access') {
-    // Redirect to Dashboard when on Access Denied page & authenticated
     return '/';
   }
+
+  // Redirect to AccessDenied page when user has insufficient permissions
   const canAccess = await canUserAccess(to);
-  if (!canAccess) return '/access-denied';
-})
+  if (!canAccess) {
+    return {
+      name: 'access',
+      query: { redirect: to.path },
+    };
+  }
+});
+
+const canUserAccess = async (route: RouteLocationNormalized) => {
+  // Allow access to anonymous pages or when user is authenticated
+  // @TODO: Implement ACL checks here
+  return route.meta?.anonymous || authStore.authenticated;
+};
 
 export default router;

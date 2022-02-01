@@ -22,10 +22,10 @@
 import { defineComponent, ref } from 'vue';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useToast } from 'primevue/usetoast';
-import { authStore } from '../store/auth-store';
 import { loginModalStore } from '../store/login-modal-store';
 import { auth } from '../service/Firebase';
 import router from '../router';
+import { redirectTarget } from '../router/helper';
 
 export default defineComponent({
   props: {
@@ -38,11 +38,10 @@ export default defineComponent({
     const loading = ref(false);
     const toast = useToast();
 
-    const performLogin = async (redirectUrl?: string) => {
+    const performLogin = async () => {
       try {
         loading.value = true;
-        const result = await signInWithEmailAndPassword(auth, username.value, password.value);
-        authStore.setUid(result.user.uid);
+        await signInWithEmailAndPassword(auth, username.value, password.value);
 
         toast.add({
           severity: 'success',
@@ -50,7 +49,9 @@ export default defineComponent({
           life: 3000,
         });
 
-        router.push(redirectUrl || '/');
+        const target = redirectTarget(router)();
+
+        router.push(target);
 
       } catch (err) {
         toast.add({

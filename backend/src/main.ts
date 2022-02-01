@@ -2,6 +2,9 @@ import { createApp } from 'vue';
 import VueRouter from './router';
 import App from './App.vue';
 
+// Layouts
+import { LAYOUTS } from './layouts/boot';
+
 // PrimeVue
 import PrimeVue from 'primevue/config';
 import Badge from 'primevue/badge';
@@ -31,6 +34,11 @@ app.use(VueRouter);
 app.use(PrimeVue);
 app.use(ToastService);
 
+// Register layouts application wide
+Object.entries(LAYOUTS).forEach(([name, component]) => {
+  app.component(name, component);
+});
+
 app.component('Badge', Badge);
 app.component('Button', Button);
 app.component('Card', Card);
@@ -45,6 +53,5 @@ app.component('Password', Password);
 app.component('Textarea', Textarea);
 app.component('Toast', Toast);
 app.component('Toolbar', Toolbar);
-
 
 app.mount('#app');
