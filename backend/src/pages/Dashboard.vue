@@ -13,6 +13,16 @@
         </template>
       </Card>
     </div>
+
+    <div class="md:col-6 lg:col-4">
+      <Card>
+        <template #title>Balance</template>
+        <template #content>
+          <router-link to="/balance">Go to balance</router-link>
+        </template>
+      </Card>
+    </div>
+
     <div class="md:col-6 lg:col-4" v-for="idx of [0,1,2,3,4,5]">
       <Card>
         <template #title>

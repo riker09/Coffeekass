@@ -2,7 +2,7 @@
 
   <Toolbar>
     <template #start>
-      <h2>Coffeekass</h2>
+      <h2><router-link to="/">Coffeekass</router-link></h2>
     </template>
 
     <template #end>
