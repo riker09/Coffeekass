@@ -15,7 +15,7 @@ This is a playground web application to get myself familiar with Angular and Pri
 1. Clone this repo (*d'uh!*)
 2. Install dependencies: `npm ci --no-audit --no-fund`
 3. Install `firebase-tools`: `npm i -g firebase-tools@9.9.0` (Please note that while `v10.x` is available it has some blocking issues)
-4. Start emulators: `firebase emulators:start --only firestore,functions,storage`
+4. Start emulators: `firebase emulators:start --only auth,firestore,functions,storage`
 5. Run frontend: `npm run frontend`
 
 
@@ -23,10 +23,10 @@ This is a playground web application to get myself familiar with Angular and Pri
 
 ```bash
 # Import on startup
-firebase emulators:start --only firestore,functions,storage --import firestore/data/default
+firebase emulators:start --only auth,firestore,functions,storage --import firestore/data/default
 
 # Import on startup, export when closing
-firebase emulators:start --only firestore,functions,storage --import firestore/data/default --export-on-exit
+firebase emulators:start --only auth,firestore,functions,storage --import firestore/data/default --export-on-exit
 
 # Export (while emulators are running)
 firebase emulators:export firestore/data/__mydata__
