@@ -29,7 +29,7 @@
         responsiveLayout="scroll"
       >
         <template #header>
-          <div class="table-header flex flex-column md:flex-row md:justiify-content-between">
+          <div class="table-header flex flex-column md:flex-row md:justify-content-between">
             <h5 class="mb-2 md:m-0 p-as-md-center">Manage Products</h5>
             <span class="p-input-icon-left">
               <i class="pi pi-search" />
@@ -182,12 +182,8 @@ const inventoryStatusSeverityMap: InventoryStatusMapType = {
   outofstock: 'danger',
 };
 
-const formatCurrency = (value: string) => {
-  if (value) {
-    // return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    return value.toLocaleString();
-  }
-  return;
+const formatCurrency = (value: number) => {
+  return (value || 0).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
 };
 
 const openNew = () => {
