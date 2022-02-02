@@ -9,7 +9,7 @@
       </template>
 
       <template #end>
-        <Button label="Balance to 0€" icon="pi pi-exclamation-triangle" class="p-button-warning mr-2" @click="confirmBalanceSelected" :disabled="!selectedItems || !selectedItems.length" />
+        <Button label="Balance to 0€" icon="pi pi-wallet" class="p-button-warning mr-2" @click="confirmBalanceSelected()" :disabled="!selectedItems || !selectedItems.length" />
         <Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV()"  />
       </template>
     </Toolbar>
@@ -39,13 +39,20 @@
 
       <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column>
 
-      <Column field="name" header="Name" :sortable="true" style="min-width:16rem"></Column>
+      <Column field="name" header="Name" :sortable="true"></Column>
 
       <Column field="balance" header="Balance" :sortable="true">
         <template #body="slotProps">
           <div :class="balanceClass(slotProps.data.balance)" class="balance cell-content">{{ formatCurrency(slotProps.data.balance) }}</div>
         </template>
       </Column>
+
+      <Column :exportable="false" style="min-width:8rem">
+        <template #body="slotProps">
+          <Button icon="pi pi-wallet" class="p-button-rounded p-button-warning" @click="confirmBalanceSelected(slotProps.data.id)" />
+        </template>
+      </Column>
+
     </DataTable>
   </div>
 
@@ -84,14 +91,17 @@ const exportCSV = () => {
 };
 
 const balanceClass = (balance: number) => {
-  console.debug('balance', balance);
   return `balance-${balance > 0 ? 'positive' : balance < 0 ? 'negative' : 'neutral'}`;
 };
 
-const confirmBalanceSelected = async () => {
-  const userChoiceTrue = confirm('Set balance for selected items to 0,00 €?');
+const confirmBalanceSelected = async (id?: string) => {
+  const users = id || selectedItems.value.length === 1
+    ? 'user'
+    : 'users'
+  const userChoiceTrue = confirm(`Set balance for selected ${users} to 0,00 €?`);
+
   if (userChoiceTrue) {
-    const ids = selectedItems.value.map((person) => person.id);
+    const ids = id ? [id] : selectedItems.value.map((person) => person.id);
     const callableFn = httpsCallable(functions, 'balance');
     const balance = ids.map(id => {
       return {
