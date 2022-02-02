@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as cors from 'cors';
+import { balance } from './balance';
 import { createPurchase, purchase } from './purchase';
 
 const corsMiddleware = cors({ origin: true });
@@ -11,4 +12,4 @@ export const helloWorld = functions.https.onRequest((req, res) => {
   });
 });
 
-export { purchase, createPurchase }
+export { balance, purchase, createPurchase }

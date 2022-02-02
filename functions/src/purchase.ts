@@ -1,7 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as cors from 'cors';
-import { applicationDefault, initializeApp } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { firestore } from './firebase';
 
 const corsMiddleware = cors({ origin: true });
 
@@ -26,17 +25,14 @@ type Purchase = {
   createdAt: Date,
 };
 
-const app = initializeApp({
-  credential: applicationDefault(),
-});
-const firestore = getFirestore(app);
-
 export const purchase = functions.https.onRequest((req, res) => {
   corsMiddleware(req, res, async () => {
     const { data: purchase }: { data: Purchase } = req.body;
 
     if (!purchase.person.name) {
-      res.status(400).send('Missing property: person.name');
+      res.status(400).send({
+        error: 'Missing property: person.name',
+      });
       return;
     }
 
@@ -46,8 +42,9 @@ export const purchase = functions.https.onRequest((req, res) => {
     const coll = firestore.collection('purchase');
     const doc = await coll.add(purchase);
 
-    res.status(201);
-    res.send({ data: { id: doc.id } });
+    res
+      .status(201)
+      .send({ data: { id: doc.id } });
   });
 });
 
