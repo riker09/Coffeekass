@@ -35,7 +35,9 @@ export class ItemListComponent implements OnInit {
     private cartService: CartService,
   ) {
     const coll = collection(this.firestore, 'product');
-    this.product$ = collectionData(coll) as unknown as Observable<Product[]>;
+    this.product$ = collectionData(coll, {
+      idField: 'id',
+    }) as unknown as Observable<Product[]>;
     this.product$.subscribe((data) => {
       this.nbProduct$ = data.length;
       this.loading = false;
