@@ -56,13 +56,18 @@
         <div class="orders-subtable">
           <h5>Products</h5>
           <DataTable :value="slotProps.data.items" responsiveLayout="scroll">
-              <Column field="product.name" header="Product" sortable></Column>
-              <Column field="qty" header="Qty" sortable></Column>
-              <Column field="product.price" header="Price" sortable>
-                <template #body="priceSlotProps">
-                  {{ formatCurrency(priceSlotProps.data.product.price) }}
-                </template>
-              </Column>
+            <Column field="product.name" header="Product"></Column>
+            <Column field="product.price" header="Price">
+              <template #body="priceSlotProps">
+                {{ formatCurrency(priceSlotProps.data.product.price) }}
+              </template>
+            </Column>
+            <Column field="qty" header="Qty"></Column>
+            <Column header="Row Total">
+              <template #body="priceSlotProps">
+                {{ formatCurrency(priceSlotProps.data.product.price * priceSlotProps.data.qty) }}
+              </template>
+            </Column>
           </DataTable>
         </div>
       </template>
