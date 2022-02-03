@@ -17,5 +17,9 @@ service cloud.firestore {
     match /person/{document=**} {
       allow read: if true;
     }
+
+    match /purchase/{document=**} {
+      allow read: if authenticated();
+    }
   }
 }
