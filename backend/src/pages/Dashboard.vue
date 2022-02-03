@@ -9,7 +9,9 @@
       <Card>
         <template #title>Products</template>
         <template #content>
-          <router-link to="/products">Go to products</router-link>
+          <router-link to="/products" v-slot="{ navigate, route }">
+            <Button :label="`Go to ${route.name}`" @click="navigate" class="p-button-secondary" />
+          </router-link>
         </template>
       </Card>
     </div>
@@ -18,18 +20,20 @@
       <Card>
         <template #title>Balance</template>
         <template #content>
-          <router-link to="/balance">Go to balance</router-link>
+          <router-link to="/balance" v-slot="{ navigate, route }">
+            <Button :label="`Go to ${route.name}`" @click="navigate" class="p-button-secondary" />
+          </router-link>
         </template>
       </Card>
     </div>
 
-    <div class="md:col-6 lg:col-4" v-for="idx of [0,1,2,3,4,5]">
+    <div class="md:col-6 lg:col-4">
       <Card>
-        <template #title>
-          Header #{{ idx }}
-        </template>
+        <template #title>Sales</template>
         <template #content>
-          Content
+          <router-link to="/sales" v-slot="{ navigate, route }">
+            <Button :label="`Go to ${route.name}`" @click="navigate" class="p-button-secondary" />
+          </router-link>
         </template>
       </Card>
     </div>
