@@ -38,7 +38,10 @@ export const purchase = functions.https.onRequest((req, res) => {
 
     // Store purchase document
     const coll = firestore.collection('purchase');
-    const doc = await coll.add({ items: purchase.items });
+    const doc = await coll.add({
+      createdAt: FirebaseFirestore.FieldValue.serverTimestamp(),
+      items: purchase.items
+    });
 
     // Reduce QTY of puchased items
     const qtyUpdates = [];
