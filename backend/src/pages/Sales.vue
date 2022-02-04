@@ -3,11 +3,6 @@
 
   <div class="card">
     <Toolbar class="mb-4">
-      <template #start>
-        <!-- <Button label="New" icon="pi pi-plus" class="p-button-success mr-2" @click="openNew" /> -->
-        <!-- <Button label="Delete" icon="pi pi-trash" class="p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedProducts || !selectedProducts.length" /> -->
-      </template>
-
       <template #end>
         <Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV()"  />
       </template>
@@ -20,21 +15,11 @@
       :value="salesService.sales"
       :paginator="true"
       :rows="10"
-      :filters="filters"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
       :rowsPerPageOptions="[5,10,25]"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} items"
       responsiveLayout="scroll"
     >
-      <template #header>
-        <div class="table-header flex flex-column md:flex-row md:justify-content-between">
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <InputText v-model="filters['global'].value" @keyup.esc="filters['global'].value=''" placeholder="Search..." />
-          </span>
-        </div>
-      </template>
-
       <Column :expander="true" :exportable="false" headerStyle="width: 3rem" />
 
       <Column field="createdAt" header="Created At" :sortable="true">
