@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as cors from 'cors';
+import { FieldValue } from 'firebase-admin/firestore';
 import { firestore } from './firebase';
 
 const corsMiddleware = cors({ origin: true });
@@ -39,7 +40,7 @@ export const purchase = functions.https.onRequest((req, res) => {
     // Store purchase document
     const coll = firestore.collection('purchase');
     const doc = await coll.add({
-      createdAt: FirebaseFirestore.FieldValue.serverTimestamp(),
+      createdAt: FieldValue.serverTimestamp(),
       items: purchase.items
     });
 
