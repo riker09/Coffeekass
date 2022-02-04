@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as cors from 'cors';
+import { FieldValue } from 'firebase-admin/firestore';
 import { firestore } from './firebase';
 
 const corsMiddleware = cors({ origin: true });
@@ -36,24 +37,12 @@ export const purchase = functions.https.onRequest((req, res) => {
       return;
     }
 
-    purchase.createdAt = new Date();
-
-    // Store purchase
+    // Store purchase document
     const coll = firestore.collection('purchase');
-    const doc = await coll.add(purchase);
-
-    res
-      .status(201)
-      .send({ data: { id: doc.id } });
-  });
-});
-
-export const createPurchase = functions.firestore
-  .document('purchase/{id}')
-  .onCreate(async (snap, context) => {
-    // Get an object representing the document
-    // e.g. {'name': 'Marie', 'age': 66}
-    const purchase = snap.data() as Purchase;
+    const doc = await coll.add({
+      createdAt: FieldValue.serverTimestamp(),
+      items: purchase.items
+    });
 
     // Reduce QTY of puchased items
     const qtyUpdates = [];
@@ -74,4 +63,10 @@ export const createPurchase = functions.firestore
     await personRef.update({
       balance: (currentBalance - total),
     });
+
+    // Return a JSON response to be in alignment with Google spec
+    res
+      .status(201)
+      .send({ data: { id: doc.id } });
+  });
 });
