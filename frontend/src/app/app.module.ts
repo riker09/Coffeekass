@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
+import { ChartModule } from 'primeng/chart';
 import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
@@ -66,6 +67,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     AvatarModule,
     ButtonModule,
     CarouselModule,
+    ChartModule,
     DataViewModule,
     DropdownModule,
     ImageModule,
