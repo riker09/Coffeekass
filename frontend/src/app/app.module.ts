@@ -11,6 +11,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
+import { MenuModule } from 'primeng/menu';
 import { SidebarModule } from 'primeng/sidebar';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
@@ -35,6 +36,7 @@ import { PeopleComponent } from './people/people.component';
 import { AvatarComponent } from './utils/avatar/avatar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { InsightsComponent } from './insights/insights.component';
 
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
@@ -54,6 +56,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     AvatarComponent,
     SidebarComponent,
     PageNotFoundComponent,
+    InsightsComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     DropdownModule,
     ImageModule,
     InputTextModule,
+    MenuModule,
     SidebarModule,
     SkeletonModule,
     TableModule,
