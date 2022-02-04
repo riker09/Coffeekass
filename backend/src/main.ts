@@ -10,6 +10,7 @@ import PrimeVue from 'primevue/config';
 import Badge from 'primevue/badge';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
+import Calendar from 'primevue/calendar';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
@@ -42,6 +43,7 @@ Object.entries(LAYOUTS).forEach(([name, component]) => {
 app.component('Badge', Badge);
 app.component('Button', Button);
 app.component('Card', Card);
+app.component('Calendar', Calendar);
 app.component('Column', Column);
 app.component('DataTable', DataTable);
 app.component('Dialog', Dialog);
