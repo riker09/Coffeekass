@@ -1,0 +1,14 @@
+<p-sidebar [(visible)]="sidebarVisible">
+  <h3>Coffeekass</h3>
+  <ul>
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Insights</a></li>
+    <li><a href="#">Backend</a></li>
+  </ul>
+</p-sidebar>
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button (click)="toggleSidebarVisibility()"><i class="pi pi-bars"></i></p-button>
+  </div>
+</p-toolbar>

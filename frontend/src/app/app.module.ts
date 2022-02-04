@@ -11,16 +11,17 @@ import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
+import { SidebarModule } from 'primeng/sidebar';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { connectFunctionsEmulator, FunctionsModule, getFunctions, provideFunctions } from '@angular/fire/functions';
 import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
-// import { provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 
@@ -31,6 +32,7 @@ import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { PeopleComponent } from './people/people.component';
 import { AvatarComponent } from './utils/avatar/avatar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
@@ -48,6 +50,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     CartItemComponent,
     PeopleComponent,
     AvatarComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,9 +64,11 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     DropdownModule,
     ImageModule,
     InputTextModule,
+    SidebarModule,
     SkeletonModule,
     TableModule,
     ToastModule,
+    ToolbarModule,
     TooltipModule,
     RouterModule.forRoot([
       {path: '', component: ItemListComponent },
