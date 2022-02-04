@@ -24,6 +24,7 @@ import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angul
 import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 
 import { environment } from '../environments/environment';
+import { routes } from './routes';
 
 import { AppComponent } from './app.component';
 import { ItemListComponent } from './item-list/item-list.component';
@@ -33,6 +34,7 @@ import { CartItemComponent } from './cart-item/cart-item.component';
 import { PeopleComponent } from './people/people.component';
 import { AvatarComponent } from './utils/avatar/avatar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
@@ -51,6 +53,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     PeopleComponent,
     AvatarComponent,
     SidebarComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,9 +73,7 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
     ToastModule,
     ToolbarModule,
     TooltipModule,
-    RouterModule.forRoot([
-      {path: '', component: ItemListComponent },
-    ]),
+    RouterModule.forRoot(routes),
     FunctionsModule,
     // provideAuth(() => {
     //   const auth = getAuth();
