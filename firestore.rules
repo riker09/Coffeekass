@@ -21,5 +21,9 @@ service cloud.firestore {
     match /purchase/{document=**} {
       allow read: if authenticated();
     }
+
+    match /statistics/{document=**} {
+      allow read: if true;
+    }
   }
 }
