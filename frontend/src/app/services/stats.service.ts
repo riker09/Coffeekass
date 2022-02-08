@@ -60,11 +60,12 @@ export class StatsService {
               return;
             }
 
-            const total = Object.values(stats).reduce((r, c) => r + c, 0); // Total number of items
+            const items = Object.entries(stats).slice(0, 5);
+            const total = items.map(([k,v]) => v).reduce((r, c) => r + c, 0); // Total number of items
 
             // Build pie data result object
             const piechartData: PieChartData = {
-              labels: Object.values(this.productMap).slice(0, 5).map(p => `${p.name} (${(stats[`${p.id}`] / total * 100).toFixed(1)}%)`),
+              labels: items.map(([k,v]) => `${this.productMap[k].name} (${(v / total * 100).toFixed(1)}%)`),
               datasets: [{
                 label: 'Popular Products',
                 data: Object.values(stats).slice(0, 5),
