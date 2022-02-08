@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatsService } from '../services/stats.service';
 
 @Component({
   selector: 'app-insights',
@@ -7,8 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InsightsComponent implements OnInit {
 
-  constructor() { }
-  pieData!: { labels: string[], datasets: { label: string; data: unknown, backgroundColor: string[] }[] };
   pieOptions = {
     title: {
       display: true,
@@ -32,6 +31,11 @@ export class InsightsComponent implements OnInit {
     },
   };
 
+  constructor(
+    public salesService: StatsService,
+  ) {
+    this.salesService.year = 2022;
+  }
 
   ngOnInit(): void {
     this.updateData();
@@ -43,17 +47,6 @@ export class InsightsComponent implements OnInit {
     for (let i = 0; i<5; i++) {
       randomData.push(Math.round(Math.random() * 100));
     }
-
-    this.pieData = {
-      labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-      datasets: [
-        {
-          label: 'Dataset 1',
-          data: randomData,
-          backgroundColor: ['#f00', '#0f0', '#00f', '#ff0', '#f0f'],
-        }
-      ]
-    };
 
     this.lineData = {
       labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
