@@ -60,15 +60,18 @@ export class StatsService {
               return;
             }
 
-            const items = Object.entries(stats).slice(0, 5);
-            const total = items.map(([k,v]) => v).reduce((r, c) => r + c, 0); // Total number of items
+            // @FIXME: When two items have the same amount of purchases, one might not end up getting displayed
+            const items = Object.entries(stats)
+              .sort((a,b) => b[1] - a[1])
+              .slice(0, 5);
+            const total = Object.entries(stats).map(([k,v]) => v).reduce((r, c) => r + c, 0); // Total number of items
 
             // Build pie data result object
             const piechartData: PieChartData = {
               labels: items.map(([k,v]) => `${this.productMap[k].name} (${(v / total * 100).toFixed(1)}%)`),
               datasets: [{
                 label: 'Popular Products',
-                data: Object.values(stats).slice(0, 5),
+                data: items.map(([k,v]) => v),
                 backgroundColor: ['#f00', '#0f0', '#00f', '#ff0', '#f0f'],
               }]
             };
