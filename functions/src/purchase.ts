@@ -41,8 +41,28 @@ export const purchase = functions.https.onRequest((req, res) => {
     const coll = firestore.collection('purchase');
     const doc = await coll.add({
       createdAt: FieldValue.serverTimestamp(),
-      items: purchase.items
+      items: purchase.items,
     });
+
+    // Substract cart total from person (must be done here since we don't store person.id on purchase doc for DSGVO reasons)
+    const total = purchase.items.reduce((prev, curr) => prev + (curr.product.price * curr.qty), 0);
+    const personRef = firestore.doc(`person/${purchase.person.id}`);
+    const currentBalance = ((await personRef.get()).data() as Person).balance || 0;
+    await personRef.update({
+      balance: (currentBalance - total),
+    });
+
+    // Return a JSON response to be in alignment with Google spec
+    res
+      .status(201)
+      .send({ data: { id: doc.id } });
+  });
+});
+
+export const createPurchase = functions.firestore
+  .document('purchase/{id}')
+  .onCreate(async (snap, context) => {
+    const purchase = snap.data() as Purchase;
 
     // Reduce QTY of puchased items
     const qtyUpdates = [];
@@ -56,17 +76,23 @@ export const purchase = functions.https.onRequest((req, res) => {
     }
     await Promise.all(qtyUpdates);
 
-    // Substract cart total from person
-    const total = purchase.items.reduce((prev, curr) => prev + (curr.product.price * curr.qty), 0);
-    const personRef = firestore.doc(`person/${purchase.person.id}`);
-    const currentBalance = ((await personRef.get()).data() as Person).balance || 0;
-    await personRef.update({
-      balance: (currentBalance - total),
-    });
+    // Update statistics
+    const now = new Date();
+    const [ year, month ] = [ now.getFullYear(), (now.getMonth() + 1) ];
+    const statsRef = firestore.doc(`statistics/${year}/month/${month}`);
+    const statsDoc = await statsRef.get();
 
-    // Return a JSON response to be in alignment with Google spec
-    res
-      .status(201)
-      .send({ data: { id: doc.id } });
-  });
+    if (!statsDoc.exists) {
+      const create: { [ key: string ]: number } = {};
+      purchase.items.forEach((item) => {
+        create[item.product.id] = item.qty;
+      });
+      await statsRef.create(create);
+    } else {
+      const updates: { [ key: string ]: unknown } = {};
+      purchase.items.forEach((item) => {
+        updates[item.product.id] = FieldValue.increment(item.qty);
+      });
+      await statsRef.update(updates);
+    }
 });

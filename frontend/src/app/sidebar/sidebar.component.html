@@ -1,0 +1,10 @@
+<p-sidebar [(visible)]="sidebarVisible">
+  <h3>Coffeekass</h3>
+  <p-menu [model]="items"></p-menu>
+</p-sidebar>
+
+<p-toolbar styleClass="white-toolbar">
+  <div class="p-toolbar-group-left">
+    <p-button (click)="sidebarVisible = true"><i class="pi pi-bars"></i></p-button>
+  </div>
+</p-toolbar>

@@ -1,0 +1,17 @@
+<div class="grid">
+  <div class="col-12 md:col-6 lg:col-4">
+    <div class="card">
+      <h2>Pie chart</h2>
+      <p *ngIf="!(salesService.pieData | async)">No stats available</p>
+      <p-chart type="pie" [data]="salesService.pieData | async" [options]="pieOptions"></p-chart>
+      <p>Have some <p-button (click)="updateData()">pie</p-button></p>
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-4">
+    <div class="card">
+      <h2>Line chart</h2>
+      <p-chart type="line" [data]="lineData" [options]="lineOptions"></p-chart>
+    </div>
+  </div>
+</div>
